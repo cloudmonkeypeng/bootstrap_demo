@@ -29,7 +29,10 @@
 
         $('.nav-pills, .nav-tabs').tabdrop();
 
-        $('#example').dataTable();
+        $('#example').dataTable({
+          "bLengthChange": false,
+          "iDisplayLength":100
+        });
       })
     </script>
 
