@@ -43,9 +43,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-2">
+      <div class="pinned">
         <div class="btn-group-vertical">
           <button type="button" class="btn btn-default">增加选项卡1</button> 
-
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               显示A组按钮
@@ -84,6 +84,7 @@
           <button type="button" class="btn btn-default">增加选项卡9</button> 
           <button type="button" class="btn btn-default">增加选项卡10</button> 
         </div>
+      </div>
       </div>
 
 
@@ -612,5 +613,14 @@
 
     </div>
   </div>
+
+  <script src="../js/jquery.pin.min.js"></script>
+
+  <!-- PIN ALL THE THINGS! -->
+  <script>
+    $(".pinned").pin({containerSelector: ".container", minWidth: 940});
+  </script>
+  <!-- That's all - pretty easy, right? -->
+
 </body>
 </html>
