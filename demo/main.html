@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Bootstrap Test</title>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/tabdrop.css">
@@ -89,7 +90,23 @@
     
             }] 
         });
+
+        registerTabCloseEvent();
       });
+
+      function registerTabCloseEvent() {
+
+        $(".closeTab").click(function () {
+            //there are multiple elements which has .closeTab icon so close the tab whose close icon is clicked
+            var tabContentId = $(this).parent().attr("href");
+            $(this).parent().parent().hide(); //remove li of tab
+            
+            $(tabContentId).hide(); //remove respective tab content
+
+            $('#myTab a:first').tab('show'); // Select first tab
+        });
+      }
+
     </script>
 
     <style type="text/css" class="init">
@@ -101,6 +118,11 @@
     #container{
       width: 75%;
     }
+
+    .nav-tabs > li .close {
+          margin: -2px 0 0 10px;
+          font-size: 18px;
+      }
 
     </style>
 </head>
@@ -122,33 +144,6 @@
                 <li><a href="#">增加选项卡3</a></li>
               </ul>
             </div>
-
-
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                显示B组按钮
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a href="#">增加选项卡4</a></li>
-                <li><a href="#">增加选项卡5</a></li>
-              </ul>
-            </div>
-
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                显示C组按钮
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-                <li><a href="#">增加选项卡6</a></li>
-                <li><a href="#">增加选项卡7</a></li>
-              </ul>
-            </div>
-
-            <button type="button" class="btn btn-default">增加选项卡8</button>
-            <button type="button" class="btn btn-default">增加选项卡9</button> 
-            <button type="button" class="btn btn-default">增加选项卡10</button> 
           </div>
 
           <br/>
@@ -169,21 +164,20 @@
 
         <ul class="nav nav-tabs" id="myTab">
           <li class="">
-            <a href="#tab1" data-toggle="tab">Section 1<span class="close">&times;</span></a>
+            <a href="#graph" data-toggle="tab">关系图</a>
           </li>
           <li class="">
-            <a href="#tab2" data-toggle="tab">Section 2<span class="close">&times;</span></a>
+            <a href="#tab1" data-toggle="tab">
+              <span class="close closeTab">&times;</span>Section 2
+            </a>
           </li>
-          <li class=""><a href="#tab3" data-toggle="tab">Section 3</a></li>
-          <li class=""><a href="#tab4" data-toggle="tab">Section 4</a></li>
-          <li class=""><a href="#tab5" data-toggle="tab">Section 5</a></li>
-          <li class=""><a href="#tab6" data-toggle="tab">Section 6</a></li>
-          <li class=""><a href="#tab7" data-toggle="tab">Section 7</a></li>
-          <li class=""><a href="#tab8" data-toggle="tab">Section 8</a></li>
-          <li class=""><a href="#tab9" data-toggle="tab">Section 9</a></li>
-          <li class=""><a href="#tab10" data-toggle="tab">Section 10<span class="close">&times;</span></a></li>
         </ul>
+
         <div class="tab-content">
+          <div class="tab-pane" id="graph">
+            <br/>
+            <p>这里放关系图</p>
+          </div>
           <div class="tab-pane" id="tab1">
             <br/>
             <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -658,34 +652,8 @@
               </tbody>
             </table>  
           </div>
-          <div class="tab-pane" id="tab2">
-           <p>I'm in Section 2.</p>
-          </div>
-          <div class="tab-pane" id="tab3">
-            <p>Howdy, I'm in Section 3.</p>
-          </div>
-          <div class="tab-pane" id="tab4">
-            <p>Howdy, I'm in Section 4.</p>
-          </div>
-          <div class="tab-pane" id="tab5">
-            <p>Howdy, I'm in Section 5.</p>
-          </div>
-          <div class="tab-pane" id="tab6">
-            <p>Howdy, I'm in Section 6.</p>
-          </div>
-          <div class="tab-pane" id="tab7">
-            <p>Howdy, I'm in Section 7.</p>
-          </div>
-          <div class="tab-pane" id="tab8">
-            <p>Howdy, I'm in Section 8.</p>
-          </div>
-          <div class="tab-pane" id="tab9">
-            <p>Howdy, I'm in Section 9.</p>
-          </div>
-          <div class="tab-pane" id="tab10">
-            <p>Howdy, I'm in Section 10.</p>
-          </div>
-        </div>      
+        </div>  
+
       </div>
 
     </div>
@@ -699,22 +667,22 @@
   </script>
 
   <!-- Modal -->
-<div class="modal fade" id="myModal">
-  <div class="modal-dialog modal-admin">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Highchart 实例</h4>
-      </div>
-      <div class="modal-body">
-        <div id="container"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-admin">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Highchart 实例</h4>
+        </div>
+        <div class="modal-body">
+          <div id="container"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 </body>
 </html>
