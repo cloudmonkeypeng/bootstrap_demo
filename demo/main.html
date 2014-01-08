@@ -16,6 +16,8 @@
     <script src="../js/jquery.pin.min.js"></script>
     
     <script>
+
+      var tabCount = 2;
       $(function () {
         $('#myTab a:first').tab('show');
 
@@ -90,9 +92,28 @@
     
             }] 
         });
-
+        
+        registerTabComposeEvent();
         registerTabCloseEvent();
       });
+
+      function registerTabComposeEvent(){
+
+        $(".composeTab").click(function(e){
+            e.preventDefault();
+            var tabId = "tab" + tabCount; //this is id on tab content div where the 
+            tabCount = tabCount + 1; //increment compose count
+
+            $('.nav-tabs').append('<li><a href="#' + tabId + '" data-toggle="tab"> <span class="close closeTab">&times;</span>'+tabId+'</a></li>');
+            $('.tab-content').append('<div class="tab-pane" id="' + tabId + '"></div>');
+
+            craeteNewTabAndLoadUrl("", "./SamplePage.html", "#" + tabId);
+
+            $(this).tab('show');
+            showTab(tabId);
+            registerTabCloseEvent();
+        });
+      }
 
       function registerTabCloseEvent() {
 
@@ -106,6 +127,22 @@
             $('#myTab a:first').tab('show'); // Select first tab
         });
       }
+
+      function showTab(tabId) {
+        $('#myTab a[href="#' + tabId + '"]').tab('show');
+      }
+
+      function craeteNewTabAndLoadUrl(parms, url, loadDivSelector) {
+
+        $("" + loadDivSelector).load(url, function (response, status, xhr) {
+          if (status == "error") {
+              var msg = "Sorry but there was an error getting details ! ";
+              $("" + loadDivSelector).html(msg + xhr.status + " " + xhr.statusText);
+              $("" + loadDivSelector).html("Load Ajax Content Here...");
+          }
+      });
+
+  }
 
     </script>
 
@@ -133,15 +170,15 @@
       <div class="col-md-2">
         <div class="pinned">
           <div class="btn-group-vertical">
-            <button type="button" class="btn btn-default">增加选项卡1</button> 
+            <button type="button" class="btn btn-default composeTab">增加选项卡1</button> 
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 显示A组按钮
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                <li><a href="#">增加选项卡2</a></li>
-                <li><a href="#">增加选项卡3</a></li>
+                <li><a href="#" class="composeTab">增加选项卡2</a></li>
+                <li><a href="#" class="composeTab">增加选项卡3</a></li>
               </ul>
             </div>
           </div>
@@ -168,7 +205,7 @@
           </li>
           <li class="">
             <a href="#tab1" data-toggle="tab">
-              <span class="close closeTab">&times;</span>Section 2
+              <span class="close closeTab">&times;</span>tab1
             </a>
           </li>
         </ul>
