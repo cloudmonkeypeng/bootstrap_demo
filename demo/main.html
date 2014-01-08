@@ -101,6 +101,10 @@
 
         $(".composeTab").click(function(e){
             e.preventDefault();
+
+            $('div.active').removeClass('active').removeClass('in');
+            $('li.active').removeClass('active');
+
             var tabId = "tab" + tabCount; //this is id on tab content div where the 
             tabCount = tabCount + 1; //increment compose count
 
@@ -112,6 +116,8 @@
             $(this).tab('show');
             showTab(tabId);
             registerTabCloseEvent();
+
+            $('.nav-pills, .nav-tabs').tabdrop('layout');
         });
       }
 
@@ -125,6 +131,8 @@
             $(tabContentId).hide(); //remove respective tab content
 
             $('#myTab a:first').tab('show'); // Select first tab
+
+            $('.nav-pills, .nav-tabs').tabdrop('layout');
         });
       }
 
