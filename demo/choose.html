@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>连动选择键</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
+</head>
+<script type="text/javascript">
+	$(function(){
+		registerDropdownClickEvent();
+	});
+
+	function registerDropdownClickEvent(){
+		$(".controlInput").click(function(e){
+			var chooseName = $(this).html();
+			$("#mainButton").text("   "+chooseName+"   ");
+			$("#mainButton").append("<span class='caret'></span>");
+
+			$("#cardInput").removeAttr("disabled");
+			$("#shopInput").removeAttr("disabled");
+			$("#cardInput").removeAttr("value");
+			$("#shopInput").removeAttr("value");
+			
+			if (chooseName=="调查卡号") {
+				$("#shopInput").attr("disabled","disabled");
+				$("#shopInput").attr("value","全体商户");
+			};
+			if (chooseName=="调查商户") {
+				$("#cardInput").attr("disabled","disabled");
+				$("#cardInput").attr("value","全体卡号");
+			};
+		});
+	}
+</script>
+<body>
+<div class="container">
+	<div class="row">
+	<div class="col-md-4">
+		<div class="input-group">
+            <div class="input-group-btn"> 
+				<button type="button" id="mainButton" class="btn btn-default dropdown-toggle " data-toggle="dropdown">
+				  调查卡号
+				  <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+				  <li><a href="#" class="controlInput" >调查卡号</a></li>
+				  <li><a href="#" class="controlInput" >调查商户</a></li>
+				  <li><a href="#" class="controlInput" >调查双方</a></li>
+				</ul>
+            </div>
+            <input type="text" class="form-control" id="cardInput">
+        </div>
+    </div>
+    <div class="col-md-4">
+    	<input type="text" class="form-control" id="shopInput" disabled="disabled" value="全体商户">
+    </div>
+    <div class="col-md-3">
+        <div class="btn-group">
+		  <button type="button" class="btn btn-default active">按月统计</button>
+		  <button type="button" class="btn btn-default">按日统计</button>
+		  <button type="button" class="btn btn-default">每笔统计</button>
+		</div>
+	</div>
+
+	<div>
+		<button type="button" class="btn btn-default">
+		  <span class="glyphicon glyphicon-repeat"></span> 刷新
+		</button>
+	</div>
+</div>
+</body>
+</html>
